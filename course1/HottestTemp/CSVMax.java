@@ -5,7 +5,6 @@
  */
 import edu.duke.*;
 import org.apache.commons.csv.*;
-import java.io.*;
 
 public class CSVMax {
 	public CSVRecord hottestHourInFile(CSVParser parser) {
@@ -25,6 +24,7 @@ public class CSVMax {
 				if (currentTemp > largestTemp) {
 					//If so update largestSoFar to currentRow
 					largestSoFar = currentRow;
+				}
 			}
 		}
 		//The largestSoFar is the answer
