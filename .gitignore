@@ -73,7 +73,6 @@ dist/
 downloads/
 eggs/
 .eggs/
-lib/
 lib64/
 parts/
 sdist/
@@ -208,7 +207,6 @@ cython_debug/
 .mtj.tmp/
 
 # Package Files #
-*.jar
 *.war
 *.nar
 *.ear
@@ -221,9 +219,15 @@ hs_err_pid*
 
 # IDE / editors
 **/*.vs
-.vscode
+.vscode/*
+!.vscode/settings.json
 .idea
 **/*.iml
 
 # macOS
 .DS_Store
+
+# For existing projects
+bin/
+# lib/
+# *.jar

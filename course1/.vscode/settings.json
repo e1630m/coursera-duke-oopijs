@@ -1,0 +1,15 @@
+{
+    "java.project.referencedLibraries": [
+        "../lib/*.jar",
+    ],
+    "java.project.sourcePaths": [
+        "PerimeterAssignmentRunner",
+        "BabyNames",
+        "FirstCSV",
+        "GrayScaleConverter",
+        "HottestTemp",
+        "TagFinder",
+        "WhichCountryExport",
+    ],
+    "java.project.outputPath": "../bin"
+}
