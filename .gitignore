@@ -242,6 +242,5 @@ buildNumber.properties
 
 # For existing projects
 bin/
-**/bin/**/
 # lib/
 # *.jar
