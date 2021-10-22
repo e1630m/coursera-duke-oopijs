@@ -130,7 +130,7 @@ public class PerimeterAssignmentRunner {
     }
 
     public void testPerimeter (Shape s) {
-        System.out.printf("peri: %.2f, numPoints: %d, avgLen: %.2f, longestLen: %.2f, largestX: %.2f",
+        System.out.printf("peri: %.2f, numPoints: %d, avgLen: %.2f, longestSide: %.2f, largestX: %.2f",
                 getPerimeter(s), getNumPoints(s), getAverageLength(s), getLargestSide(s), getLargestX(s));
     }
     
