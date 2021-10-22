@@ -1,5 +1,6 @@
 import edu.duke.*;
 import java.io.File;
+import java.util.ArrayList;
 
 public class PerimeterAssignmentRunner {
     public double getPerimeter (Shape s) {
@@ -21,23 +22,33 @@ public class PerimeterAssignmentRunner {
     }
 
     public int getNumPoints (Shape s) {
-        // Put code here
-        return 0;
+        int numPoints = 0;
+        for (Point p : s.getPoints())
+            numPoints++;
+        return numPoints;
     }
 
     public double getAverageLength(Shape s) {
-        // Put code here
-        return 0.0;
+        return getPerimeter(s) / getNumPoints(s);
     }
 
     public double getLargestSide(Shape s) {
-        // Put code here
-        return 0.0;
+        double longest = 0.0;
+        Point prev = s.getLastPoint();
+        for (Point p : s.getPoints()) {
+            if (prev.distance(p) > longest)
+                longest = prev.distance(p);
+            prev = p;
+        }
+        return longest;
     }
 
     public double getLargestX(Shape s) {
-        // Put code here
-        return 0.0;
+        double largestX = Double.NEGATIVE_INFINITY;
+        for (Point p : s.getPoints())
+            if (p.getX() > largestX)
+                largestX = p.getX();
+        return largestX;
     }
 
     public double getLargestPerimeterMultipleFiles() {
@@ -51,23 +62,37 @@ public class PerimeterAssignmentRunner {
         return temp.getName();
     }
 
-    public void testPerimeter () {
-        FileResource fr = new FileResource();
-        Shape s = new Shape(fr);
+    public void testPerimeter (Shape s) {
         double length = getPerimeter(s);
         System.out.println("perimeter = " + length);
+        System.out.println("number of points = " + getNumPoints(s));
+        System.out.println("average length = " + getAverageLength(s));
+        System.out.println("length of longest side = " + getLargestSide(s));
+        System.out.println("largestX = " + getLargestX(s));
     }
     
-    public void testPerimeterMultipleFiles() {
-        // Put code here
+    public void testPerimeterMultipleFiles(Iterable<File> files) {
+        for (File f : files)
+            System.out.println(f.getName() + " perimeter = "
+                    + getPerimeter(new Shape(new FileResource(f))));
     }
 
-    public void testFileWithLargestPerimeter() {
-        // Put code here
+    public void testFileWithLargestPerimeter(Iterable<File> files) {
+        double largest = 0.0;
+        File largestFile = null;
+        for (File f : files) {
+            double tPerimeter = getPerimeter(new Shape(new FileResource(f)));
+            if (tPerimeter > largest){
+                largest = tPerimeter;
+                largestFile = f;
+            }
+        }
+        System.out.println("largest perimeter = " + largest
+                            + " (" + largestFile.getName() + ")");
     }
 
     // This method creates a triangle that you can use to test your other methods
-    public void triangle(){
+    public void triangle() {
         Shape triangle = new Shape();
         triangle.addPoint(new Point(0,0));
         triangle.addPoint(new Point(6,0));
@@ -79,16 +104,31 @@ public class PerimeterAssignmentRunner {
         System.out.println("perimeter = "+peri);
     }
 
-    // This method prints names of all files in a chosen folder that you can use to test your other methods
-    public void printFileNames() {
+    // This method returns all chosen files in the directory
+    public Iterable<File> getFiles() {
         DirectoryResource dr = new DirectoryResource();
+        System.out.printf("(Selected files = ");
+        ArrayList<File> files = new ArrayList<File>();
         for (File f : dr.selectedFiles()) {
-            System.out.println(f);
+            System.out.printf("%s ", f.getName());
+            files.add(f);
         }
+        System.out.printf(")\n");
+        return files;
     }
 
     public static void main (String[] args) {
+        String dataFolder = "data/PerimeterAssignmentRunner/";
+        String fileName = "datatest4.txt";
+
+        System.out.println("Single File Test (" + fileName + ")");
         PerimeterAssignmentRunner pr = new PerimeterAssignmentRunner();
-        pr.testPerimeter();
+        Shape s = new Shape(new FileResource(dataFolder + fileName));
+        pr.testPerimeter(s);
+
+        System.out.printf("\nMulti File Test ");
+        Iterable<File> dir = pr.getFiles();
+        pr.testPerimeterMultipleFiles(dir);
+        pr.testFileWithLargestPerimeter(dir);
     }
 }
