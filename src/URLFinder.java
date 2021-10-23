@@ -1,7 +1,7 @@
 /**
  * Prints out all links within the HTML source of a web page.
  * 
- * @author Duke Software Team 
+ * @author Duke Software Team + e1630m
  */
 import edu.duke.*;
 
@@ -39,7 +39,7 @@ public class URLFinder {
 		System.out.println("size s3 = " + s3.size());
 	}
 
-	// Finding a Gene in DNA - Part 4
+	// 1. Finding a Gene in DNA - Part 4
 	public StorageResource findYouTubeLinks(String url) {
 		URLResource page = new URLResource(url);
 		String source = page.asString();
